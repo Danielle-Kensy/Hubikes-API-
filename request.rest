@@ -1,0 +1,31 @@
+###
+GET http://localhost:3003/bike
+
+###
+GET http://localhost:3003/bike/colors?color=black
+
+###
+GET http://localhost:3003/bike/prices?price=1000
+
+###
+POST http://localhost:3003/bike/register
+Content-Type: application/json
+
+{
+    "color":"blue", 
+    "marches": 4, 
+    "brand":"Caloi", 
+    "model":"aro 15", 
+    "price": 1000.00
+}
+
+###
+PUT http://localhost:3003/bike/08c7f425-ab7e-44ea-8a9d-c2bbc54042b8
+Content-Type: application/json
+
+{
+    "price": 3000.00
+}
+
+###
+DELETE http://localhost:3003/bike/del/08c7f425-ab7e-44ea-8a9d-c2bbc54042b8
