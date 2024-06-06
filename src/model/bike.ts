@@ -5,6 +5,7 @@ export type bike = {
     brand: string,
     model: string,
     price: number
+    //discount: number
 }
 
 export interface bikeInputDTO {
@@ -13,6 +14,7 @@ export interface bikeInputDTO {
     brand: string,
     model: string,
     price: number
+    //discount?: number
 } 
 
 export type alterBike = {
