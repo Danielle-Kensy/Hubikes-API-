@@ -59,14 +59,15 @@ export class BikeController {
         res: Response
     ): Promise<void> => {
         try {
-            const { color, marches, brand, model, price } = req.body
+            const { color, marches, brand, model, price, img } = req.body
 
             const input: bikeInputDTO = {
                 color, 
                 marches, 
                 brand, 
                 model, 
-                price
+                price,
+                img
             }
 
             await this.bikeBusiness.bikeRegister(input)

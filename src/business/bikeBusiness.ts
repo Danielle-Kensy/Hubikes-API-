@@ -1,6 +1,7 @@
 import { MissingColor, MissingId, MissingParameters, MissingPrice, NotFound } from "../error/customError";
-import { alterBikeDTO, bike, bikeInputDTO } from "../model/bike";
+import { alterBikeDTO, bike, bikeInputDTO, bikeOutputDTO, bikeRaw } from "../model/bike";
 import { generateId } from "../services/generateId";
+import { transformBikeData } from "../services/transformBikeData";
 import { BikeRepository } from "./bikeRepository";
 
 export class BikeBusiness {
@@ -8,7 +9,7 @@ export class BikeBusiness {
         private bikeDatabase: BikeRepository
     ){}
 
-    public getAllBikes = async (): Promise<bike[]> => {
+    public getAllBikes = async (): Promise<bikeOutputDTO[]> => {
         try {
             
             const bikes = await this.bikeDatabase.getAllBikes()
@@ -17,7 +18,9 @@ export class BikeBusiness {
                 throw new NotFound()
             }
 
-            return bikes
+            const bikeOutputDTOs: bikeOutputDTO[] = transformBikeData(bikes)
+
+            return bikeOutputDTOs
 
         } catch (error: any) {
             throw new Error(error.message)
@@ -70,9 +73,9 @@ export class BikeBusiness {
         input: bikeInputDTO
     ) => {
         try {
-            const { color, marches, brand, model, price } = input
+            const { color, marches, brand, model, price, img } = input
 
-            if(!color || !marches || !brand || !model || !price) {
+            if(!color || !marches || !brand || !model || !price || !img) {
                 throw new MissingParameters()
             }
 
@@ -84,7 +87,8 @@ export class BikeBusiness {
                 marches,
                 brand,
                 model,
-                price
+                price,
+                img
             })
 
         } catch (error: any) {

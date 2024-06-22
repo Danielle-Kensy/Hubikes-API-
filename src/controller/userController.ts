@@ -83,9 +83,9 @@ export class UserController {
             }
             
             const userBusiness = new UserBusiness()
-            const token = await userBusiness.login(input)
+            const data = await userBusiness.login(input)
      
-           res.send({ message: "Usuário logado!", token })
+           res.send({ message: "Usuário logado!", token: data.token, id: data.id })
          } catch (error: any) {
            res.send(error.message)
          }

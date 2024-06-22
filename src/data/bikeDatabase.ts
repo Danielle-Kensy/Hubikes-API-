@@ -8,6 +8,9 @@ export class BikeDatabase extends BaseDatabase implements BikeRepository {
         try {
             const bikes = await BikeDatabase.connection
             .select('*')
+            //inner join com categoria
+            .innerJoin('bike_category', 'bike.id', '=', 'bike_category.bike_id')
+            .innerJoin('category', 'bike_category.category_id', '=', 'category.id')
             .from('bike')
 
             return bikes

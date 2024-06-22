@@ -1,17 +1,18 @@
-import { addressType, user } from "../model/user"
+import { addressType, rawUser, user } from "../model/user"
 import { BaseDatabase } from "./baseDatabase"
 
 export class UserDatabase extends BaseDatabase {
 
-   public getProfile = (
+   public getProfile = async (
       id: string
-   ) => {
+   ): Promise<rawUser[]> => {
       try{
         
-         return UserDatabase.connection('users')
-         .select('id', 'name', 'email')
-         .where({id: id})
-      
+         const profile = await UserDatabase.connection('users')
+         .select('users.name', 'users.email', 'address.user_id', 'address.id', 'address.street', 'address.number')
+         .innerJoin('address', 'address.user_id', 'users.id')
+         .where('users.id', id)
+         return profile
 
       } catch (error: any) {
         throw new Error(error.message)

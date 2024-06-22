@@ -22,7 +22,17 @@ export class UserBusiness {
         console.log(data)
 
         const user = await userDatabase.getProfile(data.id)
-        return user
+        const profile = {
+            id: user[0].user_id,
+            name: user[0].name,
+            email: user[0].email,
+            address: {
+                id: user[0].id,
+                street: user[0].street,
+                number: user[0].number
+            }
+        }
+        return profile
 
       } catch (error: any) {
         throw new Error(error.message)
@@ -90,7 +100,7 @@ export class UserBusiness {
         }
     }
     
-    public login = async (input: LoginInputDTO): Promise<string> => {
+    public login = async (input: LoginInputDTO): Promise<{token: string, id: string}> => {
       try {
         const { email, password } = input
       
@@ -112,8 +122,9 @@ export class UserBusiness {
 
         const authenticator = new Authenticator()
         const token = authenticator.generateToken(user.id)
+        const id = user.id
       
-        return token
+        return {token, id}
       } catch (error: any) {
         throw new Error(error.message)
       }

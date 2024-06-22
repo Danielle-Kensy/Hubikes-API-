@@ -20,6 +20,15 @@ export type AddressInputDTO = {
     number: number
 }
 
+export type rawUser = {
+    name: string,
+    email: string,
+    user_id: string,
+    id: string,
+    street: string,
+    number: number
+  };
+
 export interface UserInputDTO {
     name: string,
     email: string,
