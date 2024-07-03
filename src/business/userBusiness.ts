@@ -126,7 +126,7 @@ export class UserBusiness {
       
         return {token, id}
       } catch (error: any) {
-        throw new Error(error.message)
+        throw new CustomError(error.statusCode, error.message)
       }
     }
 }

@@ -1,6 +1,7 @@
 import { UserBusiness } from "../business/userBusiness"
 import { Request, Response } from "express"
 import { EditInputDTO, LoginInputDTO, UserInputDTO } from "../model/user"
+import { UserNotFound } from "../error/customError"
 
 export class UserController {
 
@@ -87,7 +88,7 @@ export class UserController {
      
            res.send({ message: "Usuário logado!", token: data.token, id: data.id })
          } catch (error: any) {
-           res.send(error.message)
+           res.status(error.statusCode).send(error.message)
          }
       }
 }

@@ -8,7 +8,7 @@ export class BaseDatabase {
    protected static connection = knex({
       client: 'mysql',
       connection: {
-         host: "127.0.0.1",
+         host: process.env.HOST,
          database: "test",
          user: "root",
          password: "",
